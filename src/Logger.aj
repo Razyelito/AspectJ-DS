@@ -9,7 +9,7 @@ import java.util.Date;
 public aspect Logger {
 	
 
-	pointcut success() : execution(Bank.money(..));
+	pointcut success() : call(* create*(..) );
 
     after() : success() { 
 
@@ -19,11 +19,9 @@ public aspect Logger {
     	//Creo o sobreescribo el archivo log.txt con la transaccion.
 
     	File archivo = new File("log.txt");
-    	Date fecha = new Date();
-    	DateFormat f_fecha = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    	Date date = new Date();
     	DateFormat f_hora = new SimpleDateFormat("hh:mm:ss");
-    	String fecha_s=f_fecha.format(fecha);
-    	String hora_s = f_hora.format(fecha);
+    	String hora_s = f_hora.format(date);
     	String transaccion = "CreateUser";
     	String logger1 = transaccion +" "+ hora_s+"\n";
     	
