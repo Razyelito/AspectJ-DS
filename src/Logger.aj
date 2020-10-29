@@ -8,22 +8,28 @@ import java.util.Date;
 
 public aspect Logger {
 	
-	pointcut success() : call(* create*(..) );
+
+	pointcut success() : execution(Bank.money(..));
+
     after() : success() { 
 
     	//Muestro la transaccion
     	System.out.println("Se ha realizado la transaccion.");
     			
     	//Creo o sobreescribo el archivo log.txt con la transaccion.
-    	File file = new File("log.txt");
-    	Date date = new Date();
-    	DateFormat dtformat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-    	String strDate=dtformat.format(date);
-    	String transaction = "CreateUser";
-    	String logger = transaction +" "+ strDate+"\n";
+
+    	File archivo = new File("log.txt");
+    	Date fecha = new Date();
+    	DateFormat f_fecha = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+    	DateFormat f_hora = new SimpleDateFormat("hh:mm:ss");
+    	String fecha_s=f_fecha.format(fecha);
+    	String hora_s = f_hora.format(fecha);
+    	String transaccion = "CreateUser";
+    	String logger1 = transaccion +" "+ hora_s+"\n";
     	
-    	try(BufferedWriter bf = new BufferedWriter(new FileWriter(file,true))){
-			bf.write(logger);
+    	try(BufferedWriter bfw = new BufferedWriter(new FileWriter(archivo,true))){
+			bfw.write(logger1);
+
 		}catch(IOException i){
 			System.out.println(i);
 		}	
