@@ -14,7 +14,7 @@ public aspect Logger {
     after() : success() { 
 
     	//Muestro la transaccion
-    	System.out.println("Se ha realizado la transaccion createUser.");
+    	System.out.println("Se ha realizado la transaccion.");
     			
     	//Creo o sobreescribo el archivo log.txt con la transaccion.
     	File file = new File("log.txt");
@@ -22,7 +22,7 @@ public aspect Logger {
     	DateFormat dtformat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     	String strDate=dtformat.format(date);
     	String transaction = "CreateUser";
-    	String logger = transaction+" "+strDate+"\n";
+    	String logger = transaction +" "+ strDate+"\n";
     	
     	try(BufferedWriter bf = new BufferedWriter(new FileWriter(file,true))){
 			bf.write(logger);
