@@ -10,13 +10,16 @@ import java.util.Date;
 
 public aspect Logger {
 	
+
 	pointcut success() : execution(Bank.money(..));
+
     after() : success() { 
 
     	//Muestro la transaccion
     	System.out.println("Se ha realizado la transaccion.");
     			
     	//Creo o sobreescribo el archivo log.txt con la transaccion.
+
     	File archivo = new File("log.txt");
     	Date fecha = new Date();
     	DateFormat f_fecha = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
@@ -28,6 +31,7 @@ public aspect Logger {
     	
     	try(BufferedWriter bfw = new BufferedWriter(new FileWriter(archivo,true))){
 			bfw.write(logger1);
+
 		}catch(IOException i){
 			System.out.println(i);
 		}	
